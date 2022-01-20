@@ -1,0 +1,321 @@
+﻿@model LockerManagementSystem.ViewModels.RequestViewModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.title = "Admin Release Locker";
+    ViewBag.header = "hanya untuk admin";
+}
+<style>
+    .icheck-success > input:first-child:checked + input[type=hidden] + label::before, .icheck-success > input:first-child:checked + label::before {
+        background-color: rgba(71, 143, 124, 1);
+        border-color: rgba(71, 143, 124, 1);
+    }
+</style>
+
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card ">
+            <div class="card-header bg-ifx-berry">
+                <h5>
+                    Request form
+                </h5>
+            </div>
+            <div class="card-body">
+                @using (Html.BeginForm("SubmitRequest", "AdminRequest"))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <span style="color:red;">
+                            @if (ViewBag.errorMessage != null)
+                            {
+                                @ViewBag.errorMessage
+                            }
+                        </span>
+                        <span style="color:forestgreen;">
+                            @if (ViewBag.successMessage != null)
+                            {
+                                @ViewBag.successMessage
+                            }
+                        </span>
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                Scan Badge ID
+                            </div>
+                            <div class="col-md-5">
+                                @Html.EditorFor(model => model.BadgeId, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return event.keyCode != 13;" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.BadgeId, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                PIC
+                            </div>
+                            <div class="col-md-5">
+                                @Html.EditorFor(model => model.PIC, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return event.keyCode != 13;" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.PIC, "", new { @class = "text-danger" })
+                        </div>
+                        <hr />
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                @Html.LabelFor(model => model.Department, htmlAttributes: new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.Department, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                @Html.LabelFor(model => model.Area, htmlAttributes: new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-9">
+                                @Html.EnumDropDownListFor(x => x.AreaEnum, "Select Area", new { @class = "form-control" })
+                            </div>
+                        </div>
+
+
+                        <div id="detailDiv" style="display:none;">
+
+                            <div class="form-group row">
+                                <div class="col-md-3">
+                                    @Html.LabelFor(model => model.Site, htmlAttributes: new { @class = "control-label" })
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-row">
+                                        <div class="col-md-4">
+                                            <div class="form-check inline icheck-success">
+                                                <input class="form-check-input" type="radio" name="Site" id="exampleRadios1" value="Batam 1" checked>
+                                                <label class="form-check-label" for="exampleRadios1">
+                                                    Batam 1
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-check inline icheck-success">
+                                                <input class="form-check-input .bex2" type="radio" name="Site" id="exampleRadios2" value="Bex 2">
+                                                <label class="form-check-label" for="exampleRadios2">
+                                                    Bex 2
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-3">
+                                    @Html.LabelFor(model => model.LockerNumber, "Locker Number", htmlAttributes: new { @class = "control-label" })
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-row">
+                                        <div class="col-md-4">
+                                            <div class="form-check inline icheck-success">
+                                                <input class="form-check-input" type="radio" name="TransactionType" id="TransactionType1" value="1" checked>
+                                                <label class="form-check-label" for="TransactionType1">
+                                                    Permanent
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-check inline icheck-success">
+                                                <input class="form-check-input" type="radio" disabled="disabled" name="TransactionType" id="TransactionType2" value="2">
+                                                <label class="form-check-label" for="TransactionType2">
+                                                    Temporary
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.TransactionType, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group row" id="lockerNumberDiv">
+                                @Html.LabelFor(model => model.LockerNumber, "Locker", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-5">
+                                    <select name="LockerId" id="LockerId" class="form-control"></select>
+                                </div>
+                            </div>
+
+                            <div id="changeWithFriend" style="display:none;">
+
+                                <div class="form-group row">
+                                    <div class="col-md-3">
+                                        @Html.LabelFor(model => model.IsChangeWithFriend, "Change with friend?", htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="col-md-4">
+                                        @Html.DropDownList("IsChangeWithFriend", new List<SelectListItem>
+                                            {
+                                               new SelectListItem{ Text="Please select", Value = "0" },
+                                               new SelectListItem{ Text="Yes", Value = "1" },
+                                               new SelectListItem{ Text="No", Value = "2" },
+                                            }, new { @class = "form-control" })
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-2 offset-10">
+                                    <input type="submit" value="Release" class="btn btn-success" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+@section Scripts {
+    <script>
+        function bindLocker() {
+            var type = $('input[name="TransactionType"]:checked').val();
+            var area = $("#AreaEnum").val();
+            var site = $('input[name="Site"]:checked').val();
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("UpdateLocker", "Request")",
+                data: { type: type, area : area, site : site},
+                cache: false,
+                beforeSend: function () {
+                    $("#loading").show();
+                    $("#LockerId").empty();
+                },
+                success: function (jsReturnArgs) {
+                    $('<option>').val("").text("--Select Locker--").appendTo("#LockerId");
+                    $.each(jsReturnArgs, function (index, value) {
+                        $('<option>').val(value.Value).text(value.Text).appendTo("#LockerId");
+                    })
+                },
+                error: function (errorData) {
+                    console.log(errorData);
+                },
+                complete: function (data) {
+                    $("#loading").hide();
+                    $("#lockerNumberDiv").show();
+                }
+            });
+        }
+
+        $("#AreaEnum").change(function () {
+            var _value = $(this).val();
+            if (_value == 1 || _value == 2) {
+                $('#exampleRadios1').prop('checked', true);
+                $('#exampleRadios2').prop('checked', false);
+                $("#exampleRadios2").attr('disabled', true);
+            } else if (_value == "3") {
+                $("#exampleRadios2").attr('disabled', false);
+            }
+
+            bindLocker();
+        });
+
+        $('input[type=radio][name=TransactionType]').change(function () {
+            if (this.value == 3) {
+                $("#changeWithFriend").show();
+            }
+            else if (this.value == 0) {
+                $("#changeWithFriend").hide();
+            } else {
+                $("#changeWithFriend").hide();
+            }
+        });
+
+         $('#IsChangeWithFriend').change(function () {
+            var isChangeWithFriend = $("#IsChangeWithFriend :selected").val();
+
+            if (isChangeWithFriend == 1) {
+                $("#Yes_changewithfriend").show();
+            } else {
+                $("#Yes_changewithfriend").hide();
+            }
+        });
+
+        $('#AreaEnum').change(function () {
+            var AreaEnum = $("#AreaEnum :selected").val();
+
+            if (AreaEnum == 0) {
+                $("#detailDiv").hide();
+            } else {
+                $("#detailDiv").show();
+            }
+        });
+
+        $('#BadgeId').on('keypress', function (e) {
+            if (e.keyCode == '13') {
+                e.preventDefault();
+
+                var badgeId = $("#BadgeId").val();
+                showForm(badgeId);
+            };
+        });
+
+        function showForm(badgeId) {
+           $.ajax({
+                url: '@Url.Action("EmployeeName", "Request")',
+                data: { "employeeId": badgeId },
+                type: 'GET',
+                cache: false,
+                beforeSend: function (result) {
+                    $("#loading").show();
+                    $("#Name").val("wait...");
+                    $("#Department").val("wait...");
+                },
+                success: function (result) {
+                    $("#loading").hide();
+                    $("#Name").val(result.name);
+                    $("#Department").val(result.dept);
+                }
+            });
+        }
+
+        $('#FriendBadgeNumber').on('keypress', function (e) {
+            if (e.keyCode == '13') {
+                e.preventDefault();
+
+                var employeeId = $("#FriendBadgeNumber").val();
+                $.ajax({
+                    url: '@Url.Action("EmployeeName", "Request")',
+                    data: { "employeeId": employeeId },
+                    type: 'GET',
+                    cache: false,
+                    beforeSend: function (result) {
+                        $("#loading").show();
+                        $("#FriendName").val("wait...");
+                        $("#FriendDepartment").val("wait...");
+                    },
+                    success: function (result) {
+                        $("#loading").hide();
+                        $("#FriendName").val(result.name);
+                        $("#FriendDepartment").val(result.dept);
+                    }
+                });
+            };
+        });
+
+
+    </script>
+}

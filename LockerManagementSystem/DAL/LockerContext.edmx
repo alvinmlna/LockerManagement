@@ -1,0 +1,404 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ems_dbModel1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ems_dbModel1StoreContainer">
+    <EntitySet Name="Admin" EntityType="ems_dbModel1.Store.Admin" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EmployeeLocker" EntityType="ems_dbModel1.Store.EmployeeLocker" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Feedback" EntityType="ems_dbModel1.Store.Feedback" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Locker" EntityType="ems_dbModel1.Store.Locker" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SpecialEmployee" EntityType="ems_dbModel1.Store.SpecialEmployee" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Transaction" EntityType="ems_dbModel1.Store.Transaction" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_EmployeeLocker_Transaction" Association="ems_dbModel1.Store.FK_EmployeeLocker_Transaction">
+      <End Role="Transaction" EntitySet="Transaction" />
+      <End Role="EmployeeLocker" EntitySet="EmployeeLocker" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_Locker" Association="ems_dbModel1.Store.FK_Transaction_Locker">
+      <End Role="Locker" EntitySet="Locker" />
+      <End Role="Transaction" EntitySet="Transaction" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeLocker_Locker" Association="ems_dbModel1.Store.FK_EmployeeLocker_Locker">
+      <End Role="Locker" EntitySet="Locker" />
+      <End Role="EmployeeLocker" EntitySet="EmployeeLocker" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="Username" />
+    </Key>
+    <Property Name="Username" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Name" Type="varchar(max)" Nullable="true" />
+    <Property Name="Access" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="EmployeeLocker">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="BadgeId" Type="varchar(max)" Nullable="false" />
+    <Property Name="LockerNumber" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="TransactionId" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LockerID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Feedback">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BadgeId" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Name" Type="varchar(max)" Nullable="false" />
+    <Property Name="Locker" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="Remark" Type="varchar(max)" Nullable="true" />
+    <Property Name="Superior" Type="varchar(max)" Nullable="false" />
+    <Property Name="SuperiorEmail" Type="varchar(max)" Nullable="false" />
+    <Property Name="Status" Type="varchar" Nullable="true" MaxLength="50" />
+    <Property Name="DateSubmit" Type="datetime" Nullable="false" />
+    <Property Name="Category" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Department" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Locker">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="LockerNumber" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="LockerKeyNumber" Type="varchar" Nullable="true" MaxLength="50" />
+    <Property Name="LockerType" Type="int" Nullable="false" />
+    <Property Name="Area" Type="int" Nullable="false" />
+    <Property Name="Site" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Stock" Type="int" Nullable="true" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SpecialEmployee">
+    <Key>
+      <PropertyRef Name="BadgeId" />
+    </Key>
+    <Property Name="BadgeId" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="Name" Type="varchar" Nullable="true" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Transaction">
+    <Key>
+      <PropertyRef Name="TransactionId" />
+    </Key>
+    <Property Name="TransactionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BadgeId" Type="varchar(max)" Nullable="false" />
+    <Property Name="Name" Type="varchar(max)" Nullable="false" />
+    <Property Name="Department" Type="varchar(max)" Nullable="false" />
+    <Property Name="Area" Type="varchar(max)" Nullable="false" />
+    <Property Name="Site" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="TransactionType" Type="int" Nullable="false" />
+    <Property Name="FriendBadgeNumber" Type="varchar" Nullable="true" MaxLength="10" />
+    <Property Name="LockerId" Type="int" Nullable="true" />
+    <Property Name="LockerNumber" Type="varchar" Nullable="true" MaxLength="10" />
+    <Property Name="DateRequest" Type="datetime" Nullable="false" />
+    <Property Name="DateRelease" Type="datetime" Nullable="true" />
+    <Property Name="Releaseby" Type="varchar(max)" Nullable="true" />
+    <Property Name="DateReturn" Type="datetime" Nullable="true" />
+    <Property Name="ReceivedBy" Type="varchar(max)" Nullable="true" />
+    <Property Name="Status" Type="int" Nullable="true" />
+    <Property Name="DateTemporaryReturn" Type="datetime" Nullable="true" />
+    <Property Name="Remark" Type="varchar(max)" Nullable="true" />
+    <Property Name="EmployeeGender" Type="varchar" Nullable="true" MaxLength="10" />
+    <Property Name="Designation" Type="varchar(max)" Nullable="true" />
+    <Property Name="PIC" Type="varchar(max)" Nullable="true" />
+  </EntityType>
+  <Association Name="FK_EmployeeLocker_Transaction">
+    <End Role="Transaction" Type="ems_dbModel1.Store.Transaction" Multiplicity="1" />
+    <End Role="EmployeeLocker" Type="ems_dbModel1.Store.EmployeeLocker" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Transaction">
+        <PropertyRef Name="TransactionId" />
+      </Principal>
+      <Dependent Role="EmployeeLocker">
+        <PropertyRef Name="TransactionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_Locker">
+    <End Role="Locker" Type="ems_dbModel1.Store.Locker" Multiplicity="0..1" />
+    <End Role="Transaction" Type="ems_dbModel1.Store.Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Locker">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Transaction">
+        <PropertyRef Name="LockerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeLocker_Locker">
+    <End Role="Locker" Type="ems_dbModel1.Store.Locker" Multiplicity="1" />
+    <End Role="EmployeeLocker" Type="ems_dbModel1.Store.EmployeeLocker" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Locker">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EmployeeLocker">
+        <PropertyRef Name="LockerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ems_dbModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Access" Type="Int32" />
+        </EntityType>
+        <EntityType Name="EmployeeLocker">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="BadgeId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LockerNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TransactionId" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LockerID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Transaction" Relationship="Self.FK_EmployeeLocker_Transaction" FromRole="EmployeeLocker" ToRole="Transaction" />
+          <NavigationProperty Name="Locker" Relationship="ems_dbModel1.FK_EmployeeLocker_Locker" FromRole="EmployeeLocker" ToRole="Locker" />
+        </EntityType>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BadgeId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Locker" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Superior" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SuperiorEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateSubmit" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Department" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Locker">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="LockerNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LockerKeyNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LockerType" Type="Int32" Nullable="false" />
+          <Property Name="Area" Type="Int32" Nullable="false" />
+          <Property Name="Site" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Stock" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Transaction" Relationship="Self.FK_Transaction_Locker" FromRole="Locker" ToRole="Transaction" />
+          <NavigationProperty Name="EmployeeLocker" Relationship="ems_dbModel1.FK_EmployeeLocker_Locker" FromRole="Locker" ToRole="EmployeeLocker" />
+        </EntityType>
+        <EntityType Name="SpecialEmployee">
+          <Key>
+            <PropertyRef Name="BadgeId" />
+          </Key>
+          <Property Name="BadgeId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="TransactionId" />
+          </Key>
+          <Property Name="TransactionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BadgeId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Department" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Area" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Site" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TransactionType" Type="Int32" Nullable="false" />
+          <Property Name="FriendBadgeNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="LockerId" Type="Int32" />
+          <Property Name="LockerNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DateRequest" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateRelease" Type="DateTime" Precision="3" />
+          <Property Name="Releaseby" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DateReturn" Type="DateTime" Precision="3" />
+          <Property Name="ReceivedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="DateTemporaryReturn" Type="DateTime" Precision="3" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeGender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Designation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PIC" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="EmployeeLocker" Relationship="Self.FK_EmployeeLocker_Transaction" FromRole="Transaction" ToRole="EmployeeLocker" />
+          <NavigationProperty Name="Locker" Relationship="Self.FK_Transaction_Locker" FromRole="Transaction" ToRole="Locker" />
+        </EntityType>
+        <Association Name="FK_EmployeeLocker_Transaction">
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="1" />
+          <End Role="EmployeeLocker" Type="Self.EmployeeLocker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="TransactionId" />
+            </Principal>
+            <Dependent Role="EmployeeLocker">
+              <PropertyRef Name="TransactionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaction_Locker">
+          <End Role="Locker" Type="Self.Locker" Multiplicity="0..1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locker">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="LockerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LockerManagementSystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admin" EntityType="Self.Admin" />
+          <EntitySet Name="EmployeeLocker" EntityType="Self.EmployeeLocker" />
+          <EntitySet Name="Feedback" EntityType="Self.Feedback" />
+          <EntitySet Name="Locker" EntityType="Self.Locker" />
+          <EntitySet Name="SpecialEmployee" EntityType="Self.SpecialEmployee" />
+          <EntitySet Name="Transaction" EntityType="Self.Transaction" />
+          <AssociationSet Name="FK_EmployeeLocker_Transaction" Association="Self.FK_EmployeeLocker_Transaction">
+            <End Role="Transaction" EntitySet="Transaction" />
+            <End Role="EmployeeLocker" EntitySet="EmployeeLocker" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Locker" Association="Self.FK_Transaction_Locker">
+            <End Role="Locker" EntitySet="Locker" />
+            <End Role="Transaction" EntitySet="Transaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmployeeLocker_Locker" Association="ems_dbModel1.FK_EmployeeLocker_Locker">
+            <End Role="Locker" EntitySet="Locker" />
+            <End Role="EmployeeLocker" EntitySet="EmployeeLocker" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_EmployeeLocker_Locker">
+          <End Type="ems_dbModel1.Locker" Role="Locker" Multiplicity="1" />
+          <End Type="ems_dbModel1.EmployeeLocker" Role="EmployeeLocker" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locker">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmployeeLocker">
+              <PropertyRef Name="LockerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ems_dbModel1StoreContainer" CdmEntityContainer="LockerManagementSystemEntities">
+    <EntitySetMapping Name="Admin">
+      <EntityTypeMapping TypeName="IsTypeOf(ems_dbModel1.Admin)">
+        <MappingFragment StoreEntitySet="Admin">
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Access" ColumnName="Access" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeLocker">
+      <EntityTypeMapping TypeName="IsTypeOf(ems_dbModel1.EmployeeLocker)">
+        <MappingFragment StoreEntitySet="EmployeeLocker">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BadgeId" ColumnName="BadgeId" />
+          <ScalarProperty Name="LockerNumber" ColumnName="LockerNumber" />
+          <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+          <ScalarProperty Name="LockerID" ColumnName="LockerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Feedback">
+      <EntityTypeMapping TypeName="IsTypeOf(ems_dbModel1.Feedback)">
+        <MappingFragment StoreEntitySet="Feedback">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BadgeId" ColumnName="BadgeId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Locker" ColumnName="Locker" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Superior" ColumnName="Superior" />
+          <ScalarProperty Name="SuperiorEmail" ColumnName="SuperiorEmail" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="DateSubmit" ColumnName="DateSubmit" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Locker">
+      <EntityTypeMapping TypeName="IsTypeOf(ems_dbModel1.Locker)">
+        <MappingFragment StoreEntitySet="Locker">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="LockerNumber" ColumnName="LockerNumber" />
+          <ScalarProperty Name="LockerKeyNumber" ColumnName="LockerKeyNumber" />
+          <ScalarProperty Name="LockerType" ColumnName="LockerType" />
+          <ScalarProperty Name="Area" ColumnName="Area" />
+          <ScalarProperty Name="Site" ColumnName="Site" />
+          <ScalarProperty Name="Stock" ColumnName="Stock" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SpecialEmployee">
+      <EntityTypeMapping TypeName="IsTypeOf(ems_dbModel1.SpecialEmployee)">
+        <MappingFragment StoreEntitySet="SpecialEmployee">
+          <ScalarProperty Name="BadgeId" ColumnName="BadgeId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transaction">
+      <EntityTypeMapping TypeName="IsTypeOf(ems_dbModel1.Transaction)">
+        <MappingFragment StoreEntitySet="Transaction">
+          <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+          <ScalarProperty Name="BadgeId" ColumnName="BadgeId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="Area" ColumnName="Area" />
+          <ScalarProperty Name="Site" ColumnName="Site" />
+          <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
+          <ScalarProperty Name="FriendBadgeNumber" ColumnName="FriendBadgeNumber" />
+          <ScalarProperty Name="LockerId" ColumnName="LockerId" />
+          <ScalarProperty Name="LockerNumber" ColumnName="LockerNumber" />
+          <ScalarProperty Name="DateRequest" ColumnName="DateRequest" />
+          <ScalarProperty Name="DateRelease" ColumnName="DateRelease" />
+          <ScalarProperty Name="Releaseby" ColumnName="Releaseby" />
+          <ScalarProperty Name="DateReturn" ColumnName="DateReturn" />
+          <ScalarProperty Name="ReceivedBy" ColumnName="ReceivedBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="DateTemporaryReturn" ColumnName="DateTemporaryReturn" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="EmployeeGender" ColumnName="EmployeeGender" />
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+          <ScalarProperty Name="PIC" ColumnName="PIC" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

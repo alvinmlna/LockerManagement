@@ -1,0 +1,33 @@
+﻿@model LockerManagementSystem.DAL.SpecialEmployee
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SpecialEmployee</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Badge ID
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BadgeId)
+        </dd>
+
+        <dt>
+            Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BadgeId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

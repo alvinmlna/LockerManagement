@@ -1,0 +1,16 @@
+﻿<nav class="main-navbar navbar navbar-expand">
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Home")">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Request")">Request</a></li>
+            <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Feedback")">Lost and Broken Key</a></li>
+
+            @if (ViewBag.access == 1 || ViewBag.access == 2)//admin
+            {
+                <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Release")">Admin Menu</a></li>
+            }
+                
+        </ul>
+    </div>
+</nav>

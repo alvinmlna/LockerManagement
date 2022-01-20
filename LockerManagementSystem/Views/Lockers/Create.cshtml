@@ -1,0 +1,133 @@
+﻿@model LockerManagementSystem.DAL.Locker
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.title = "Locker";
+    ViewBag.header = "Add New Locker";
+}
+
+<div class="col-md-6 offset-3">
+    <div class="card ">
+        <div class="card-header bg-ifx-berry">
+            Add New Locker
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LockerNumber, htmlAttributes: new { @class = "control-label col-md-5" })
+                        <div class="col-md-10 form-row no-gutters">
+                            <div class="form-group col-md-6">
+                                @Html.EditorFor(model => model.LockerNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.LockerNumber, "", new { @class = "text-danger" })
+                            </div>
+
+                            @if (ViewBag.enableLocker != null)
+                            {
+                                <div class="form-group col-md-2">
+                                    <a href="@Url.Action("EnableLocker","Lockers", new { lockerNumber = ViewBag.enableLocker })" class="btn btn-primary">enable</a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LockerKeyNumber, htmlAttributes: new { @class = "control-label col-md-5" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.LockerKeyNumber, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.LockerKeyNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-5">
+                            @Html.LabelFor(model => model.Site, htmlAttributes: new { @class = "control-label" })
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-row">
+                                <div class="col-md-4">
+                                    <div class="form-check inline">
+                                        <input class="form-check-input" type="radio" name="Site" id="exampleRadios1" value="Batam 1" checked>
+                                        <label class="form-check-label" for="exampleRadios1">
+                                            Batam 1
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check inline">
+                                        <input class="form-check-input" type="radio" name="Site" id="exampleRadios2" value="Bex 2">
+                                        <label class="form-check-label" for="exampleRadios2">
+                                            Bex 2
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LockerType, "Locker Type", htmlAttributes: new { @class = "control-label col-md-5" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("LockerType", new List<SelectListItem>
+                                {
+                                   new SelectListItem{ Text="Permanent Locker", Value = "1" },
+                                   new SelectListItem{ Text="Temporary Locker", Value = "2" },
+                                }, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.LockerType, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Area, htmlAttributes: new { @class = "control-label col-md-5" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("Area", new List<SelectListItem>
+                                {
+                                   new SelectListItem{ Text="FOL", Value = "1" },
+                                   new SelectListItem{ Text="EOL", Value = "2" },
+                                   new SelectListItem{ Text="TESTING", Value = "3" },
+                                }, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Stock, htmlAttributes: new { @class = "control-label col-md-5" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Save" class="btn btn-success" />
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+        <div class="card-footer">
+            <div>
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+@section Scripts{
+
+    @if (ViewBag.success != null)
+    {
+        <script>
+            successAlert();
+        </script>
+    }
+}

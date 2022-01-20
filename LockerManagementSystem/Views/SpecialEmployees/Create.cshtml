@@ -1,0 +1,89 @@
+﻿@model LockerManagementSystem.DAL.SpecialEmployee
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.title = "Special Employee";
+    ViewBag.header = "add new";
+}
+
+<div class="col-md-6 offset-3">
+    <div class="card ">
+        <div class="card-header bg-ifx-berry">
+                Please fill up all form.
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.BadgeId, "Badge ID (press enter)", htmlAttributes: new { @class = "control-label col-md-10" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.BadgeId, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return event.keyCode != 13;" } })
+                            @Html.ValidationMessageFor(model => model.BadgeId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-5" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Save" class="btn btn-success" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="card-footer">
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+
+    @if (ViewBag.success != null)
+    {
+        <script>
+            successAlert();
+        </script>
+    }
+
+
+    <script>
+        $('#BadgeId').on('keypress', function (e) {
+            if (e.keyCode == '13') {
+                e.preventDefault();
+
+                var badgeId = $("#BadgeId").val();
+                showForm(badgeId);
+            };
+        });
+
+        function showForm(badgeId) {
+           $.ajax({
+                url: '@Url.Action("EmployeeName", "Request")',
+                data: { "employeeId": badgeId },
+                type: 'GET',
+                cache: false,
+                beforeSend: function (result) {
+                    $("#loading").show();
+                    $("#Name").val("wait...");
+                },
+                success: function (result) {
+                    $("#loading").hide();
+                    $("#Name").val(result.name);
+                }
+            });
+        }
+    </script>
+}

@@ -1,0 +1,106 @@
+﻿@model PagedList.IPagedList<LockerManagementSystem.DAL.Feedback>
+@using PagedList.Mvc;
+@using LockerManagementSystem.App_Class.Helpers
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.title = "Feedback";
+    ViewBag.header = "All submitted feedback";
+}
+
+
+
+<div class="card ">
+        <div class="card-header bg-ifx-berry">
+            Manage Feedbacks
+        </div>
+        <div class="card-body">
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link active" href="@Url.Action("FeedbackList", "Feedback")">Open</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("FeedbackListCLOSE", "Feedback")">Close</a>
+                </li>
+            </ul>
+
+            <br />
+
+            @using (Html.BeginForm("FeedbackList", "Feedback"))
+            {
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        @Html.TextBox("SearchString", null, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-4">
+                        <input type="submit" class="btn btn-primary" value="Search" />
+                    </div>
+                </div>
+            }
+            <table class="table">
+                <tr>
+                    <th>
+                        Badge ID
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Department
+                    </th>
+                    <th>
+                        Locker
+                    </th>
+                    <th>
+                        Superior
+                    </th>
+                    <th>
+                        Date Request
+                    </th>
+                    <th>
+                        Remark
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => item.BadgeId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Department)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Locker)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Superior)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateSubmit)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Remark)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Close", "Close", new { feedbackId = item.Id }, new { @class = "btn btn-warning" })
+
+                            <a class="btn btn-danger" href="@Url.Action("Delete", "Feedback", new { feedbackId = item.Id, status = "Open" })">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+
+            </table><br />
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+            @Html.PagedListPager(Model, page => Url.Action("FeedbackList",
+                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+        </div>
+    </div>

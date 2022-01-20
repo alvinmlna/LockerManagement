@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "Locker Management System";
+}
+
+<style>
+    .card a {
+        width: 100%;
+        border-radius: 20px;
+        text-decoration: none !important;
+        display: block;
+        text-align: center;
+        line-height: 40px;
+        background-color: white;
+        border-radius: 10px;
+    }
+
+        .card a:hover {
+            background-color: #f3f2f2;
+        }
+
+    .card {
+        border-radius: 10px;
+    }
+
+
+    .cardImg {
+        margin: 40px 0 25px 0px;
+        width: 30%;
+    }
+
+    .cText {
+        color: #53585f;
+        font-weight: bold;
+    }
+
+    .cText-kid {
+        color: #53585f;
+        line-height: 17px;
+        margin: 0 20px;
+        padding-bottom: 40px;
+    }
+
+
+    .cTitle {
+        margin: 20px 0;
+        text-align: center;
+    }
+
+    @@media only screen and (max-width: 1280px) {
+        .card a {
+            max-height: 250px;
+            background-color: white;
+        }
+    }
+
+    @@media only screen and (min-width: 1281px) {
+        .card a {
+            height: 250px;
+        }
+    }
+</style>
+<div class="d-flex justify-content-center align-items-center">
+    <div class="col-sm-10 ">
+        <h4 class="cTitle">Select Menu</h4>
+        <div class="col-sm-12 row">
+            <div class="col-sm-4">
+                <div class="card bg-white">
+                    <a href="http://attire.bth.infineon.com/">
+                        <img class="cardImg" src="~/Content/Images/Attire Request.png" alt="Request Logo"><br />
+                        <p class="cText-kid">Attire System.</p>
+                    </a>
+                </div>
+            </div>            
+            <div class="col-sm-4">
+                <div class="card bg-white">
+                    <a href="@Url.Action("Index", "Request")">
+                        <img class="cardImg" src="~/Content/Images/Locker Request.png" alt="Request Logo"><br />
+                        <p class="cText-kid">Request Permanent/Temporary Locker.</p>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card bg-white">
+                    <a href="http://oe.bth.infineon.com/">
+                        <img class="cardImg" src="~/Content/Images/Home Logo.png" />
+                        <p class="cText-kid">OE Application Portal</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<LockerManagementSystem.DAL.SpecialEmployee>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.title = "Special Employee";
+    ViewBag.header = "list all registered special employee";
+}
+
+<div class="card ">
+        <div class="card-header bg-ifx-berry">
+            Special User &nbsp; &nbsp; @Html.ActionLink("Add New", "Create", null, new { @class = "btn btn-primary" })
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BadgeId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BadgeId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @*<a class="btn btn-info" href="@Url.Action("Edit", "SpecialEmployees", new { id = item.BadgeId})">
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                </a>*@
+
+                            <a class="btn btn-danger" href="@Url.Action("Delete", "SpecialEmployees", new { id = item.BadgeId})">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+        </div>
+    </div>
+
+

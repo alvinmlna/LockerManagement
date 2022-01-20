@@ -1,0 +1,35 @@
+﻿@model List<LockerManagementSystem.ViewModels.RequestViewModel>
+@using LockerManagementSystem.App_Class.Helpers
+
+<div class="col-md-12">
+    <div class="card ">
+        <div class="card-header bg-ifx-berry">
+            <h5>
+                Recent Locker Request
+            </h5>
+        </div>
+        <div class="card-body" style="overflow-y: scroll; height:600px;">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Badge ID</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Area</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.BadgeId</td>
+                            <td>@item.Name</td>
+                            <td>@EnumHelpers.TransactionType(item.TransactionType)</td>
+                            <td>@item.Area</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

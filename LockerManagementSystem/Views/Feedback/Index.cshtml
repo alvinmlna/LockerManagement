@@ -1,0 +1,234 @@
+﻿@model LockerManagementSystem.ViewModels.FeedbackViewModel
+
+@{
+    ViewBag.Title = "Feedback form";
+}
+
+<style>
+</style>
+
+<div class="row">
+    <div class="col-md-6 offset-3">
+        <div class="card ">
+            <div class="card-header bg-ifx-berry">
+                <h5>
+                    Feedback form
+                </h5>
+            </div>
+            <div class="card-body">
+                @using (Html.BeginForm("Index", "Feedback"))
+                {
+                    @Html.AntiForgeryToken()
+
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                Badge ID
+                            </div>
+                            <div class="col-md-3">
+                                @Html.EditorFor(model => model.BadgeId, new { htmlAttributes = new { @class = "form-control", @onkeypress = "return event.keyCode != 13;" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.BadgeId, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                Name
+                            </div>
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                Department
+                            </div>
+                            <div class="col-md-6">
+                                @Html.EditorFor(model => model.Department, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row" id="lockerNumberDiv">
+                            <div class="col-md-3">
+                                Locker
+                            </div>
+                            <div class="col-md-3">
+                                <select id="Locker" name="Locker" class="form-control"></select>
+                                @Html.ValidationMessageFor(model => model.Locker, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        @*<div class="form-group row">
+                                <div class="col-md-3">
+                                    Category
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.DropDownList("Category", new List<SelectListItem>
+                                    {
+                                       new SelectListItem{ Text="Lost (Hilang)", Value = "Lost (Hilang)" },
+                                       new SelectListItem{ Text="Broken (Rusak)", Value = "Broken (Rusak)" },
+                                    }, new { @class = "form-control" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                            </div>*@
+
+
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                Superior
+                            </div>
+                            <div class="col-md-5">
+                                @Html.EditorFor(model => model.Superior, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Superior, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                Superior Email
+                            </div>
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.SuperiorEmail, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.SuperiorEmail, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                Remark
+                            </div>
+                            <div class="col-md-5">
+                                @Html.DropDownList("Remark", new List<SelectListItem>
+                                {
+                                   new SelectListItem{ Text="Lost (Hilang)", Value = "Lost (Hilang)" },
+                                   new SelectListItem{ Text="Broken (Rusak)", Value = "Broken (Rusak)" },
+                                }, new { @class = "form-control" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                            </div>
+                            <div class="col-md-5">
+                                <input type="submit" value="Submit" class="btn btn-success" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            @*<div class="card-footer">
+                    @Html.ActionLink("Back to List", "Index")
+                </div>*@
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+
+    @if (ViewBag.complete != null)
+    {
+        <script>
+            successAlert();
+        </script>
+    }
+
+    <script>
+         $('#BadgeId').on('keypress', function (e) {
+            if (e.keyCode == '13') {
+                e.preventDefault();
+
+                var badgeId = $("#BadgeId").val();
+                showForm(badgeId);
+            };
+        });
+
+        function showForm(badgeId) {
+           $.ajax({
+                url: '@Url.Action("EmployeeName", "Request")',
+                data: { "employeeId": badgeId },
+                type: 'GET',
+                cache: false,
+                beforeSend: function (result) {
+                    $("#loading").show();
+                    $("#Name").val("wait...");
+                    $("#Department").val("wait...");
+                },
+                success: function (result) {
+                    $("#loading").hide();
+                    $("#Name").val(result.name);
+                    $("#Department").val(result.dept);
+
+                     $.ajax({
+                        type: "GET",
+                        url: "@Url.Action("UpdateLocker", "Feedback")",
+                        data: { badgeId : badgeId},
+                        cache: false,
+                        beforeSend: function () {
+                            $("#loading").show();
+                            $("#Locker").empty();
+                        },
+                        success: function (jsReturnArgs) {
+                            $('<option>').val("").text("--select--").appendTo("#Locker");
+                            $.each(jsReturnArgs, function (index, value) {
+                                $('<option>').val(value.Value).text(value.Text).appendTo("#Locker");
+                            })
+                         },
+                        error: function (errorData) { },
+                        complete: function (data) {
+                            $("#loading").hide();
+                            $("#lockerNumberDiv").show();
+                        }
+                    });
+
+
+
+
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $("#Superior").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "@Url.Action("AutocompleteEmail", "Feedback")",
+                        cache: false,
+                        type: "POST",
+                        dataType: "json",
+                        data: { Prefix: request.term },
+                        beforeSend: function () {
+                            $("#loading").show();
+                        },
+                        success: function (data) {
+                            $("#loading").hide();
+                            response($.map(data, function (item) {
+                                return { label: item.Name, value: item.Email, desc: item.Name };
+                            }));
+                        }
+                    })
+                },
+                select: function (event, ui) {
+                    event.preventDefault();
+                    $("#Superior").val(ui.item.desc);
+                    $("#SuperiorEmail").val(ui.item.value);
+                },
+                focus: function (event, ui) {
+                    event.preventDefault();
+                },
+                messages: {
+                }
+            });
+
+        })
+
+    </script>
+}

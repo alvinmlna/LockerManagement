@@ -1,0 +1,153 @@
+﻿@model List<LockerManagementSystem.ViewModels.ReturnViewModel>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.title = "Return";
+}
+
+<div class="card ">
+        <div class="card-header bg-ifx-berry">
+            Please input badge ID
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("Search", "Return", FormMethod.Get))
+            {
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group row">
+                        <div class="col-md-2">
+                            @Html.TextBox("badgeid", null, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-4">
+                            <input type="submit" class="btn btn-primary" value="Search" />
+                        </div>
+                    </div>
+                </div>
+            }
+
+            Employee Name:  <b>@ViewBag.Name</b> 
+            <p></p>
+
+            <table class="table">
+                <tr>
+                    <th>
+                        Area
+                    </th>
+                    <th>
+                        Site
+                    </th>
+                    <th>
+                        Locker Type
+                    </th>
+                    <th>
+                        Locker Number
+                    </th>
+                    <th>
+                        Date Temporary Locker Return
+                    </th>
+                    <th>
+                        Remark
+                    </th>
+                    <th>
+                    </th>
+                </tr>
+                @{
+                    var i = 1;
+                }
+                @foreach (var item in Model)
+                {
+
+                    var style = "";
+
+                    if (item.IsExpired)
+                    {
+                        style = "background-color:red;color:white;";
+                    }
+
+                    <tr style="@style">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Area)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Site)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LockerType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LockerNunmber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateTemporaryReturn)
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" id="Remark_@i" name="Remark_@i">
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-success" onclick="returnRequest(@item.TransactionId, @i, @item.BadgeId)" id="submitBtn">Return</button>
+
+                            @if (item.LockerType == "Temporary")
+                            {
+                                <button type="button" class="btn btn-info" onclick="extend(@item.TransactionId, @item.BadgeId)" id="submitBtn">Extend 3 Days</button>
+                            }
+                        </td>
+                    </tr>
+
+                    i++;
+                }
+
+            </table>
+
+        </div>
+    </div>
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        function returnRequest(id, i, badgeId) {
+            var remark = $("#Remark_" + i).val();
+             $.ajax({
+                type: "GET",
+                url: "@Url.Action("ReturnRequest", "Return")",
+                data: { Remark: remark, TransactionId: id },
+                cache:false,
+                beforeSend: function () {
+                    $('#loading').show();
+                },
+                success: function (jsReturnArgs) {
+                    $('#loading').hide();
+                    window.location.href = '/Return/Search/?badgeid=' + badgeId;
+                },
+                 error: function (errorData) {
+                     console.log("Error");
+                     console.log(errorData);
+                 }
+            });
+        }
+
+
+        function extend(id, badgeId) {
+             $.ajax({
+                type: "GET",
+                url: "@Url.Action("Extend", "Return")",
+                data: { TransactionId: id },
+                cache:false,
+                beforeSend: function () {
+                    $('#loading').show();
+                },
+                success: function (jsReturnArgs) {
+                    $('#loading').hide();
+                    window.location.href = '/Return/Search/?badgeid=' + badgeId;
+                },
+                 error: function (errorData) {
+                     console.log("Error");
+                     console.log(errorData);
+                 }
+            });
+        }
+    </script>
+}

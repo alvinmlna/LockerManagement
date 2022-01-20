@@ -1,0 +1,600 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C787DC4F-35BC-44FC-A54D-A64AC3817300}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LockerManagementSystem</RootNamespace>
+    <AssemblyName>LockerManagementSystem</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.7.2\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=5.8.3.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.5.8.3\lib\net45\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.0.10.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.0.10\lib\net20\ExcelNumberFormat.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.1.4.1\lib\net46\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.0.1\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Packaging, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Packaging.4.0.0\lib\net46\System.IO.Packaging.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Dynamic.1.0.8\lib\net40\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.4\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Class\AccessEnum.cs" />
+    <Compile Include="App_Class\AreaEnum.cs" />
+    <Compile Include="App_Class\DateTimeExtensions.cs" />
+    <Compile Include="App_Class\Helpers\ExportToExcelHelper.cs" />
+    <Compile Include="App_Class\Helpers\UserHelpers.cs" />
+    <Compile Include="App_Class\Helpers\EnumHelpers.cs" />
+    <Compile Include="App_Class\Helpers\GMDSHelpers.cs" />
+    <Compile Include="App_Class\LockerEnum.cs" />
+    <Compile Include="App_Class\Security\AuthorizationHandlerAttribute.cs" />
+    <Compile Include="App_Class\SiteEnum.cs" />
+    <Compile Include="App_Class\StatusEnum.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\Code_Junk.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminRequestController.cs" />
+    <Compile Include="Controllers\AdminsController.cs" />
+    <Compile Include="Controllers\AutomateController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\ExternalLinkController.cs" />
+    <Compile Include="Controllers\FeedbackController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LayoutController.cs" />
+    <Compile Include="Controllers\LockersController.cs" />
+    <Compile Include="Controllers\ReleaseController.cs" />
+    <Compile Include="Controllers\RequestController.cs" />
+    <Compile Include="Controllers\ReturnController.cs" />
+    <Compile Include="Controllers\SpecialEmployeesController.cs" />
+    <Compile Include="DAL\Admin.cs">
+      <DependentUpon>LockerContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\EmployeeLocker.cs">
+      <DependentUpon>LockerContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Feedback.cs">
+      <DependentUpon>LockerContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\GMDS.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GMDS.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\GMDS.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GMDS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\GMDS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GMDS.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Locker.cs">
+      <DependentUpon>LockerContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\LockerContext.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LockerContext.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\LockerContext.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LockerContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\LockerContext.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LockerContext.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\SpecialEmployee.cs">
+      <DependentUpon>LockerContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\tbl_GMDS.cs">
+      <DependentUpon>GMDS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Transaction.cs">
+      <DependentUpon>LockerContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\FeedbackViewModel.cs" />
+    <Compile Include="ViewModels\LockerViewModel.cs" />
+    <Compile Include="ViewModels\ReleaseViewModel.cs" />
+    <Compile Include="ViewModels\RequestViewModel.cs" />
+    <Compile Include="ViewModels\ReturnViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\admin-styles.css" />
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap-sass.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\ComputerNameForReturnAttire.txt" />
+    <Content Include="Content\custom.css" />
+    <Content Include="Content\custom.min.css" />
+    <Content Include="Content\CustomCss.css" />
+    <Content Include="Content\EmailTemplate.txt" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\icheck-bootstrap.css" />
+    <Content Include="Content\icheck-bootstrap.min.css" />
+    <Content Include="Content\image-providers.css" />
+    <Content Include="Content\image-providers.min.css" />
+    <Content Include="Content\Images\24x24\home.png" />
+    <Content Include="Content\Images\24x24\information.png" />
+    <Content Include="Content\Images\24x24\user.png" />
+    <Content Include="Content\Images\ajax-loader.gif" />
+    <Content Include="Content\Images\Attire Request.png" />
+    <Content Include="Content\Images\Attire Return.png" />
+    <Content Include="Content\Images\dontanddo.jpg" />
+    <Content Include="Content\Images\Green Line Logo_GrayScale.jpg" />
+    <Content Include="Content\Images\GreenLine.jpg" />
+    <Content Include="Content\Images\Home Logo.png" />
+    <Content Include="Content\Images\image-placeholder-e1411098766130.jpg" />
+    <Content Include="Content\Images\Locker Request.png" />
+    <Content Include="Content\Images\menu\iconImpersonation.png" />
+    <Content Include="Content\Images\menu\iconImpersonationExit.png" />
+    <Content Include="Content\Images\menu\ifx-i-org.png" />
+    <Content Include="Content\Images\menu\ifx-i-phone.png" />
+    <Content Include="Content\Images\menu\ifx-i-rules.png" />
+    <Content Include="Content\Images\menu\ifx-i-web.png" />
+    <Content Include="Content\Images\menu\ifx-logo-white.svg" />
+    <Content Include="Content\Images\menu\ifx-logo.svg" />
+    <Content Include="Content\Images\menu\lock_berry.svg" />
+    <Content Include="Content\Images\menu\lock_white.svg" />
+    <Content Include="Content\Images\menu\log_berry.svg" />
+    <Content Include="Content\Images\menu\log_white.svg" />
+    <Content Include="Content\Images\menu\site_berry.svg" />
+    <Content Include="Content\Images\menu\site_white.svg" />
+    <Content Include="Content\Images\other\unauthorized.jpg" />
+    <Content Include="Content\Images\Slide Attire Time Window.jpg" />
+    <Content Include="Content\img\Loading.gif" />
+    <Content Include="Content\jquery-ui-1.13.0\AUTHORS.txt" />
+    <Content Include="Content\jquery-ui-1.13.0\external\jquery\jquery.js" />
+    <Content Include="Content\jquery-ui-1.13.0\index.html" />
+    <Content Include="Content\jquery-ui-1.13.0\jquery-ui.css" />
+    <Content Include="Content\jquery-ui-1.13.0\jquery-ui.js" />
+    <Content Include="Content\jquery-ui-1.13.0\jquery-ui.min.css" />
+    <Content Include="Content\jquery-ui-1.13.0\jquery-ui.min.js" />
+    <Content Include="Content\jquery-ui-1.13.0\jquery-ui.structure.css" />
+    <Content Include="Content\jquery-ui-1.13.0\jquery-ui.structure.min.css" />
+    <Content Include="Content\jquery-ui-1.13.0\LICENSE.txt" />
+    <Content Include="Content\jquery-ui-1.13.0\theme-jquery-ui.css" />
+    <Content Include="Content\kendo.bootstrap-based.css" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\css\buttons.bootstrap.css" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\css\buttons.bootstrap.min.css" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\css\buttons.bootstrap4.css" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\css\buttons.bootstrap4.min.css" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\css\buttons.bootstrap5.css" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\css\buttons.bootstrap5.min.css" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\css\buttons.bulma.css" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\css\buttons.bulma.min.css" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\css\buttons.dataTables.css" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\css\buttons.dataTables.min.css" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\css\buttons.foundation.css" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\css\buttons.foundation.min.css" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\css\buttons.jqueryui.css" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\css\buttons.jqueryui.min.css" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\css\buttons.semanticui.css" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\css\buttons.semanticui.min.css" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\js\buttons.bootstrap.js" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\js\buttons.bootstrap.min.js" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\js\buttons.bootstrap4.js" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\js\buttons.bootstrap4.min.js" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\js\buttons.bootstrap5.js" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\js\buttons.bootstrap5.min.js" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\js\buttons.bulma.js" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\js\buttons.bulma.min.js" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\js\buttons.colVis.js" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\js\buttons.colVis.min.js" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\js\buttons.dataTables.js" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\js\buttons.dataTables.min.js" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\js\buttons.foundation.js" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\js\buttons.foundation.min.js" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\js\buttons.html5.js" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\js\buttons.html5.min.js" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\js\buttons.jqueryui.js" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\js\buttons.jqueryui.min.js" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\js\buttons.print.js" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\js\buttons.print.min.js" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\js\buttons.semanticui.js" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\js\buttons.semanticui.min.js" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\js\dataTables.buttons.js" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\js\dataTables.buttons.min.js" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\css\dataTables.bootstrap.css" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\css\dataTables.bootstrap.min.css" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\css\dataTables.bootstrap4.css" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\css\dataTables.bootstrap4.min.css" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\css\dataTables.bootstrap5.css" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\css\dataTables.bootstrap5.min.css" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\css\dataTables.bulma.css" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\css\dataTables.bulma.min.css" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\css\dataTables.dataTables.css" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\css\dataTables.dataTables.min.css" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\css\dataTables.foundation.css" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\css\dataTables.foundation.min.css" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\css\dataTables.jqueryui.css" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\css\dataTables.jqueryui.min.css" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\css\dataTables.semanticui.css" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\css\dataTables.semanticui.min.css" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\css\jquery.dataTables.css" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\css\jquery.dataTables.min.css" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\images\sort_asc.png" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\images\sort_asc_disabled.png" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\images\sort_both.png" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\images\sort_desc.png" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\images\sort_desc_disabled.png" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\js\dataTables.bootstrap.js" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\js\dataTables.bootstrap.min.js" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\js\dataTables.bootstrap4.js" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\js\dataTables.bootstrap4.min.js" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\js\dataTables.bootstrap5.js" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\js\dataTables.bootstrap5.min.js" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\js\dataTables.bulma.js" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\js\dataTables.bulma.min.js" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\js\dataTables.dataTables.js" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\js\dataTables.dataTables.min.js" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\js\dataTables.foundation.js" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\js\dataTables.foundation.min.js" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\js\dataTables.jqueryui.js" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\js\dataTables.jqueryui.min.js" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\js\dataTables.semanticui.js" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\js\dataTables.semanticui.min.js" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\js\jquery.dataTables.js" />
+    <Content Include="Content\my-datatable\DataTables-1.11.3\js\jquery.dataTables.min.js" />
+    <Content Include="Content\my-datatable\datatables.css" />
+    <Content Include="Content\my-datatable\datatables.js" />
+    <Content Include="Content\my-datatable\datatables.min.css" />
+    <Content Include="Content\my-datatable\datatables.min.js" />
+    <Content Include="Content\my-datatable\JSZip-2.5.0\jszip.js" />
+    <Content Include="Content\my-datatable\JSZip-2.5.0\jszip.min.js" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Content\site.min.css" />
+    <Content Include="DAL\GMDS.edmx.sql" />
+    <Content Include="DAL\LockerContext.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LockerContext.edmx</DependentUpon>
+      <LastGenOutput>LockerContext.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DAL\LockerContext.edmx.sql" />
+    <Content Include="DAL\LockerContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LockerContext.edmx</DependentUpon>
+      <LastGenOutput>LockerContext.cs</LastGenOutput>
+    </Content>
+    <Content Include="DAL\Seed.sql" />
+    <Content Include="Scripts\admin-scripts.js" />
+    <Content Include="Scripts\font-awesome\all.min.js" />
+    <Content Include="Scripts\sweetalert2.all.min.js" />
+    <Content Include="DAL\GMDS.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GMDS.edmx</DependentUpon>
+      <LastGenOutput>GMDS.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DAL\GMDS.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GMDS.edmx</DependentUpon>
+      <LastGenOutput>GMDS.cs</LastGenOutput>
+    </Content>
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="DAL\GMDS.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>GMDS.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DAL\GMDS.edmx.diagram">
+      <DependentUpon>GMDS.edmx</DependentUpon>
+    </Content>
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\custom.less" />
+    <Content Include="Content\image-providers.less" />
+    <Content Include="Content\site.less" />
+    <Content Include="Content\variables.less" />
+    <Content Include="Content\jquery-ui-1.13.0\package.json" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\css\common.scss" />
+    <Content Include="Content\my-datatable\Buttons-2.0.1\css\mixins.scss" />
+    <EntityDeploy Include="DAL\LockerContext.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>LockerContext.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DAL\LockerContext.edmx.diagram">
+      <DependentUpon>LockerContext.edmx</DependentUpon>
+    </Content>
+    <None Include="Properties\PublishProfiles\PRODUCTIVE.pubxml" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\umd\popper-utils.js" />
+    <Content Include="Scripts\umd\popper-utils.min.js" />
+    <Content Include="Scripts\umd\popper.js" />
+    <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Admins\Create.cshtml" />
+    <Content Include="Views\Admins\Edit.cshtml" />
+    <Content Include="Views\Admins\Index.cshtml" />
+    <Content Include="Views\Request\Index.cshtml" />
+    <Content Include="Views\Release\Index.cshtml" />
+    <Content Include="Views\Release\ChangeWithFriendModal.cshtml" />
+    <Content Include="Views\Release\DefaultReleaseModal.cshtml" />
+    <Content Include="Views\Return\Index.cshtml" />
+    <Content Include="Views\Return\Search.cshtml" />
+    <Content Include="Views\Automate\AllRelease.cshtml" />
+    <Content Include="Views\Automate\AllRequest.cshtml" />
+    <Content Include="Views\Lockers\Create.cshtml" />
+    <Content Include="Views\Lockers\Delete.cshtml" />
+    <Content Include="Views\Lockers\Details.cshtml" />
+    <Content Include="Views\Lockers\Edit.cshtml" />
+    <Content Include="Views\Lockers\Index.cshtml" />
+    <Content Include="Views\Lockers\TrackTransaction.cshtml" />
+    <Content Include="Views\SpecialEmployees\Create.cshtml" />
+    <Content Include="Views\SpecialEmployees\Delete.cshtml" />
+    <Content Include="Views\SpecialEmployees\Details.cshtml" />
+    <Content Include="Views\SpecialEmployees\Edit.cshtml" />
+    <Content Include="Views\SpecialEmployees\Index.cshtml" />
+    <Content Include="Views\Request\RecentRequest.cshtml" />
+    <Content Include="Views\Feedback\Index.cshtml" />
+    <Content Include="Views\Feedback\FeedbackList.cshtml" />
+    <Content Include="Views\Feedback\FeedbackListCLOSE.cshtml" />
+    <Content Include="Views\Shared\AccessDenied.cshtml" />
+    <Content Include="Views\Layout\Navbar.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Layout\AdminNavbar.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Dashboard\Permanent.cshtml" />
+    <Content Include="Views\Release\Admin_ChangeWithFriendModal.cshtml" />
+    <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\umd\popper.js.map" />
+    <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Views\AdminRequest\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+    <Folder Include="Views\ExternalLink\" />
+    <Folder Include="Views\Locker\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52150</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:52150/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

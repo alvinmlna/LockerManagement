@@ -1,0 +1,123 @@
+﻿@using LockerManagementSystem.App_Class.Helpers
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.title = "Locker";
+    ViewBag.header = "Manage Lockers";
+}
+
+<style>
+    .badge-light {
+        color:black;
+    }
+</style>
+
+<div class="card ">
+    <div class="card-header bg-ifx-berry">
+        Manage Lockers  &nbsp;&nbsp;  @Html.ActionLink("Add New", "Create", null, new { @class = "btn btn-success" }) |
+
+        @*Available Locker
+
+        <button type="button" class="btn btn-secondary">
+            FOL <span class="badge badge-light">@ViewBag.FOL</span>
+        </button>
+        <button type="button" class="btn btn-secondary">
+            EOL <span class="badge badge-light">@ViewBag.EOL</span>
+        </button>
+        <button type="button" class="btn btn-secondary">
+            Testing <span class="badge badge-light">@ViewBag.TESTING</span>
+        </button>*@
+    </div>
+    <div class="card-body">
+        <table class="table" id="table_id">
+            <thead>
+
+                <tr>
+                    <th>
+                        Locker Number
+                    </th>
+                    <th>
+                        Key Number
+                    </th>
+                    <th>
+                        Locker Type
+                    </th>
+                    <th>
+                        Area
+                    </th>
+                    <th width="100px">
+                        Site
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Stock
+                    </th>
+                    <th width="180px">Actions</th>
+                </tr>
+
+            </thead>
+
+        </table>
+
+        <br />
+    </div>
+</div>
+
+
+@section Scripts {
+    @Styles.Render("~/Content/datatable")
+    @Scripts.Render("~/bundles/datatable")
+
+    <script>
+        $(document).ready(function () {
+            $("#table_id").DataTable({
+                'dom': 'Bfrtip',
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": false, // for disable multiple column at once
+                "pageLength": 10,
+                'buttons': [
+                    {
+                        "extend": 'excel',
+                        "text": 'Export',
+                        "titleAttr": 'Excel',
+                        "action": newexportaction
+                    }
+                ],
+                "ajax": {
+                    "url": "@Url.Action("LoadLocker", "Lockers")",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columnDefs":
+                    [{
+                        "targets": [7],
+                        "searchable": false,
+                        "orderable": false
+                    }], 
+                "columns": [
+                    { "data": "LockerNumber", "name": "LockerNumber", "autoWidth": true },
+                    { "data": "LockerKeyNumber", "name": "LockerKeyNumber", "autoWidth": true },
+                    { "data": "LockerTypeView", "title": "Type", "name": "LockerType", "autoWidth": true },
+                    { "data": "AreaView", "name": "AreaView", "autoWidth": true },
+                    { "data": "Site", "name": "Site", "autoWidth": true },
+                    { "data": "ayam", "name": "ayam", "autoWidth": true },
+                    { "data": "Stock", "name": "Stock", "title": "stock", "autoWidth": true },
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<a class="btn btn-success" href="/Lockers/TrackTransaction/' + full.Id + '">Track</a> &nbsp;' +
+                                '<a class="btn btn-warning" href="/Lockers/Edit/' + full.Id + '"><i class="fas fa-edit" style="color:white;" aria-hidden="true"></i></a> &nbsp;' +
+                                '<a class="btn btn-danger" href="/Lockers/Delete/' + full.Id + '"><i class="fa fa-trash" aria-hidden="true"></i></a>'
+                        }
+                    }
+                ]
+
+            });
+
+        });
+
+    </script>
+}

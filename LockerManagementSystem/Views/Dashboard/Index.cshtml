@@ -1,0 +1,195 @@
+﻿@model List<LockerManagementSystem.ViewModels.ReturnViewModel>
+@using PagedList.Mvc;
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    //ViewBag.title = "Dashboard";
+}
+<ul class="nav nav-pills">
+    <li class="nav-item">
+        <a class="nav-link active" href="@Url.Action("Index", "Dashboard")">Temporary Locker</a>
+    </li>
+    &nbsp;
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Permanent Locker
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="@Url.Action("Permanent", "Dashboard", new { area = "FOL" })">FOL</a>
+            <a class="dropdown-item" href="@Url.Action("Permanent", "Dashboard", new { area = "EOL" })">EOL</a>
+            <a class="dropdown-item" href="@Url.Action("Permanent", "Dashboard", new { area = "TESTING" })">TESTING</a>
+        </div>
+    </li>
+</ul>
+
+<hr />
+<div class="card ">
+    <div class="card-header bg-ifx-berry">
+        All released temporary locker
+        |
+        
+        <input type="checkbox" id="expiredChck" >
+        <label for="expiredChck"> Show Expired Only</label><br>
+
+    </div>
+    <div class="card-body">
+        <table class="table" id="table_id">
+            <thead>
+
+                <tr>
+                    <th> Badge ID </th>
+                    <th> Name </th>
+                    <th> Department </th>
+                    <th> Designation </th>
+                    <th> Gender </th>
+                    <th> Area </th>
+                    <th> Site </th>
+                    <th>Locker Number </th>
+                    <th>KeyNumber </th>
+                    <th> Date Release </th>
+                    <th> Target Return </th>
+                    <th> Status </th>
+                    <th>Action </th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    @Styles.Render("~/Content/datatable")
+    @Scripts.Render("~/bundles/datatable")
+
+<script>
+
+    $(document).ready(function () {
+        $("#expiredChck").change(function () {
+            var table = $('#table_id').DataTable();
+
+            if (this.checked) {
+                table.search('Expired').draw();
+            } else {
+                table.search('').draw();
+            }
+        });
+
+            $("#table_id").DataTable({
+                'dom': 'Bfrtip',
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": false, // for disable multiple column at once
+                "pageLength": 10,
+                'buttons': [
+                    {
+                        "extend": 'excel',
+                        "text": 'Export',
+                        "titleAttr": 'Excel',
+                        "action": newexportaction,
+                        "columns": ':visible'
+                    }
+                ],
+                "ajax": {
+                    "url": "@Url.Action("LoadTemporary", "Dashboard")",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columnDefs":
+                    [{
+                        "targets": [11],
+                        "searchable": false,
+                        "orderable": false
+                    },
+                    {
+                        "targets": [2],
+                        "visible": false
+                    },
+                    {
+                        "targets": [3],
+                        "visible": false
+                    }, {
+                        "targets": [4],
+                        "visible": false
+                    },
+                    ],
+                "columns": [
+                    { "data": "BadgeId", "name": "BadgeId", "autoWidth": true },
+                    { "data": "Name", "name": "Name", "autoWidth": true },
+                    { "data": "Department", "name": "Department", "autoWidth": true },
+                    { "data": "Designation", "name": "Designation", "autoWidth": true },
+                    { "data": "EmployeeGender", "name": "EmployeeGender", "autoWidth": true },
+                    { "data": "Area", "title": "Area", "name": "Area", "autoWidth": true },
+                    { "data": "Site", "name": "Site", "autoWidth": true },
+                    { "data": "LockerNunmber", "name": "LockerNunmber", "autoWidth": true },
+                    { "data": "KeyNumber", "name": "KeyNumber", "autoWidth": true },
+                    { "data": "DateReleaseView", "name": "DateReleaseView", "title" : "Date Release", "autoWidth": true },
+                    { "data": "DateTemporaryReturnView", "name": "DateTemporaryReturnView", "title": "Return", "autoWidth": true },
+                    { "data": "Status", "name": "Status", "autoWidth": true },
+                    {
+                        "render": function (data, type, full, meta) {
+                            return '<button type="button" class="btn btn-primary" onclick="extend(' + full.TransactionId + ',' + full.BadgeId + ')" id="submitBtn">Extend</button> &nbsp;' +
+                            '<button type="button" class="btn btn-warning"  onclick="returnRequest(' + full.TransactionId + ',' + full.BadgeId + ')" id="submitBtn">Return</button>';
+                        }
+                    }
+                ],
+                rowCallback: function (row, data, index) {
+                    if (data.IsExpired) {
+                        //$("td:eq(4)", row).addClass("active");
+                        $(row).css('background-color', 'red')
+                        $(row).css('color', 'white')
+                    }
+                }
+
+            });
+
+            // Event listener to the two range filtering inputs to redraw on input
+            $('#min, #max').keyup(function () {
+                $("#table_id").draw();
+            });
+        });
+
+        function returnRequest(id, badgeId) {
+            if (confirm('Are you sure want to return?')) {
+              $.ajax({
+                type: "GET",
+                url: "@Url.Action("ReturnRequest", "Return")",
+                data: { Remark: '', TransactionId: id },
+                cache:false,
+                beforeSend: function () {
+                    $('#loading').show();
+                },
+                 success: function (jsReturnArgs) {
+                    $('#table_id').DataTable().ajax.reload();
+                    $('#loading').hide();
+                },
+                 error: function (errorData) {
+                     console.log("Error");
+                     console.log(errorData);
+                 }
+            });
+            } else {
+
+            }
+        }
+
+        function extend(id, badgeId) {
+             $.ajax({
+                type: "GET",
+                url: "@Url.Action("Extend", "Return")",
+                data: { TransactionId: id },
+                cache:false,
+                beforeSend: function () {
+                    $('#loading').show();
+                },
+                success: function (jsReturnArgs) {
+                    $('#loading').hide();
+                    $('#table_id').DataTable().ajax.reload();
+                },
+                 error: function (errorData) {
+                     console.log("Error");
+                     console.log(errorData);
+                 }
+            });
+        }
+</script>
+}

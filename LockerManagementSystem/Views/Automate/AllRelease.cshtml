@@ -1,0 +1,63 @@
+﻿@model IEnumerable<LockerManagementSystem.ViewModels.RequestViewModel>
+@using LockerManagementSystem.App_Class.Helpers
+
+@{
+    ViewBag.Title = "All Release";
+}
+
+<h2>All Release</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BadgeId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Department)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Area)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Site)
+        </th>
+        <th>
+            Date Request
+        </th>
+        <th>
+            Request Type
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.BadgeId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Department)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Area)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Site)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.DateRequest)
+            </td>
+            <td>
+                @EnumHelpers.TransactionType(item.TransactionType)
+            </td>
+        </tr>
+    }
+
+</table>
+

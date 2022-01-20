@@ -1,0 +1,65 @@
+﻿@model IEnumerable<LockerManagementSystem.DAL.Admin>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.title = "Admin";
+    ViewBag.header = "All registered admin";
+}
+
+
+<div class="card ">
+        <div class="card-header bg-ifx-berry">
+            Manage Admin &nbsp; &nbsp;  @Html.ActionLink("Add New", "Create", null, new { @class = "btn btn-primary" })
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Username)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Access)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Username)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @if (item.Access == 1)
+                            {
+                                <p>Admin</p>
+                            }
+                            else
+                            {
+                                <p>Attire Team</p>
+                            }
+                        </td>
+                        <td>
+
+                            <a class="btn btn-warning" href="@Url.Action("Edit", "Admins")/?id=@item.Username" >
+                                <i class="fas fa-edit" style="color:white;" aria-hidden="true"></i>
+                            </a>
+
+                            <a class="btn btn-danger" href="@Url.Action("Delete", "Admins")/?id=@item.Username" >
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+
+

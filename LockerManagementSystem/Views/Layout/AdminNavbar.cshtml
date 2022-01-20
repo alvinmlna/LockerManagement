@@ -1,0 +1,68 @@
+﻿
+@if (ViewBag.access == 1 || ViewBag.access == 2)
+{
+
+    <div class="nav">
+        <div class="sb-sidenav-menu-heading">Core</div>
+        <a class="nav-link" href="@Url.Action("Index","Dashboard")">
+            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+            Dashboard
+        </a>
+        <a class="nav-link" href="@Url.Action("Index","AdminRequest")">
+            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+            Admin Release
+        </a>
+        <div class="sb-sidenav-menu-heading">Transaction</div>
+        <a class="nav-link" href="@Url.Action("Index","Release")">
+            <div class="sb-nav-link-icon"><i class="fas fa-tshirt"></i></div>
+            Release
+        </a>
+        <a class="nav-link" href="@Url.Action("Index","Return")">
+            <div class="sb-nav-link-icon"><i class="fas fa-exchange-alt"></i></div>
+            Return
+        </a>
+
+
+        <div class="sb-sidenav-menu-heading">Locker</div>
+        @if (ViewBag.access == 1)//admin
+        {
+            <a class="nav-link" href="@Url.Action("Index","Lockers")">
+                <div class="sb-nav-link-icon"><i class="fas fa-key"></i></div>
+                Locker
+            </a>
+        }
+
+        <a class="nav-link" href="@Url.Action("FeedbackList","Feedback")">
+            <div class="sb-nav-link-icon"><i class="fas fa-headset"></i></div>
+            Lost and Broken Key
+        </a>
+
+
+        @if (ViewBag.access == 1)//admin
+        {
+            <div class="sb-sidenav-menu-heading">User</div>
+            <a class="nav-link" href="@Url.Action("Index","Admins")">
+                <div class="sb-nav-link-icon"><i class="fas fa-users-cog"></i></div>
+                Admin
+            </a>
+            <a class="nav-link" href="@Url.Action("Index","SpecialEmployees")">
+                <div class="sb-nav-link-icon"><i class="fas fa-user-tie"></i></div>
+                Special User
+            </a>
+        }
+    </div>
+}
+else
+{
+    <div class="nav">
+        <div class="sb-sidenav-menu-heading">Core</div>
+        <a class="nav-link" href="index.html">
+            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+            Dashboard
+        </a>
+        <a class="nav-link" href="@Url.Action("Index","Request")">
+            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+            Request Locker
+        </a>
+    </div>
+}

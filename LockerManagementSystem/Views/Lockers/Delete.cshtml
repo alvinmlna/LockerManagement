@@ -1,0 +1,60 @@
+﻿@model LockerManagementSystem.DAL.Locker
+@using LockerManagementSystem.App_Class.Helpers
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.title = "Locker";
+    ViewBag.header = "Remove Locker";
+}
+
+<div class="card ">
+    <div class="card-header">
+            Anda yakin ingin menghapus locker ini? <br />
+        Locker yang di hapus tidak hilang, hanya disembunyikan di server.
+    </div>
+    <div class="card-body">
+        <dl class="dl-horizontal">
+            <dt>
+                Locker Number
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LockerNumber)
+            </dd>
+            <dt>
+                Locker Key Number
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LockerKeyNumber)
+            </dd>
+
+            <dt>
+                Locker Type
+            </dt>
+
+            <dd>
+                @EnumHelpers.TransactionType(Model.LockerType)
+            </dd>
+
+            <dt>
+                Area
+            </dt>
+
+            <dd>
+                @EnumHelpers.GetAreaName(Model.Area)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-success" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,206 @@
+﻿.mymargin {
+    margin-top: 10px;
+}
+
+.k-grid .k-grid-toolbar .k-grid-add,
+.k-grid tbody .k-grid-edit,
+.k-grid tbody .k-grid-update,
+.k-grid tbody .k-grid-cancel,
+.k-grid tbody .k-grid-delete {
+    min-width: 0;
+}
+
+.k-grid .k-grid-toolbar .k-grid-add .k-icon,
+.k-grid tbody .k-grid-edit .k-icon,
+.k-grid tbody .k-grid-update .k-icon,
+.k-grid tbody .k-grid-cancel .k-icon,
+.k-grid tbody .k-grid-delete .k-icon {
+    margin: 0;
+}
+
+.k-grid td {
+    line-height: 2em;
+}
+
+.arrow-right {
+    width: 0;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-left: 15px solid green;
+}
+
+/* Breaking News */
+.onoffswitch3 {
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.onoffswitch3-checkbox {
+    display: none;
+}
+
+.onoffswitch3-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border: 0px solid #999999;
+    border-radius: 0px;
+}
+
+.onoffswitch3-inner {
+    display: block;
+    width: 200%;
+    margin-left: -100%;
+    -moz-transition: margin 0.3s ease-in 0s;
+    -webkit-transition: margin 0.3s ease-in 0s;
+    -o-transition: margin 0.3s ease-in 0s;
+    transition: margin 0.3s ease-in 0s;
+}
+
+.onoffswitch3-inner > span {
+    display: block;
+    float: left;
+    position: relative;
+    width: 50%;
+    height: 30px;
+    padding: 0;
+    line-height: 30px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.onoffswitch3-inner .onoffswitch3-active {
+    padding-left: 10px;
+    background-color: #EEEEEE;
+    color: #FFFFFF;
+}
+
+.onoffswitch3-inner .onoffswitch3-inactive {
+    width: 100px;
+    padding-left: 16px;
+    background-color: #EEEEEE;
+    color: #FFFFFF;
+    text-align: right;
+}
+
+.onoffswitch3-switch {
+    display: block;
+    width: 50%;
+    margin: 0px;
+    text-align: center;
+    border: 0px solid #999999;
+    border-radius: 0px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+}
+
+.onoffswitch3-active .onoffswitch3-switch {
+    background: #cf5611;
+    left: 0;
+    width: 160px;
+}
+
+.onoffswitch3-inactive {
+    background: #A1A1A1;
+    right: 0;
+    width: 20px;
+}
+
+.onoffswitch3-checkbox:checked + .onoffswitch3-label .onoffswitch3-inner {
+    margin-left: 0;
+}
+
+.glyphicon-remove {
+    padding: 3px 0px 0px 0px;
+    color: #fff;
+    background-color: #000;
+    height: 25px;
+    width: 25px;
+    border-radius: 15px;
+    border: 2px solid #fff;
+}
+
+.scroll-text {
+    color: #000;
+}
+
+.tbl {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+    .tbl td, .tbl th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    .tbl tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .tbl th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #ab377a;
+        color: white;
+    }
+
+.Ifx-btnGreen {
+    background-color: #478f7c;
+    color: white;
+    border-color: #478f7c;
+}
+
+.k-primary {
+    background-color: #478f7c !important;
+    color: white !important;
+    border-color: #478f7c !important;
+}
+
+
+
+.ReleaseReceiveGrid, .ReleaseReceiveGrid .k-widget {
+    font-size: 11px !important;
+}
+
+.ReleaseReceiveGrid td, .ReleaseReceiveGrid th {
+    padding: 0.30rem !important;
+    text-align: center;
+}
+
+@media only screen and (max-width: 1280px) {
+    .kendoGrid, .k-widget {
+        font-size: 11px !important;
+    }
+
+    .PageBody {
+        font-size: 11px !important;
+    }
+
+    .card-header {
+        font-size: 13px;
+    }
+
+}
+
+@media only screen and (min-width: 1281px) {
+    .kendoGrid, .k-widget {
+        font-size: 13px !important;
+    }
+
+    .PageBody {
+        font-size: 14px !important;
+    }
+
+    .card-header {
+        font-size: 16px;
+    }
+
+}
+

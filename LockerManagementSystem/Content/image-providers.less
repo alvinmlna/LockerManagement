@@ -1,0 +1,79 @@
+﻿@baseURL: "../Content/Images";
+@imgURL24: "@{baseURL}/24x24";
+@imgURLMenu: "@{baseURL}/menu";
+
+.imgProperties (@size) {
+    background-repeat: no-repeat;
+    display: inline-block;
+    background-position: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    outline: none !important;
+    width: @size;
+    height: @size;
+}
+
+.img-index-header (@size) {
+    width: @size;
+    height: @size;
+    background-size: calc(@size -10px) calc(@size -10px);
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+}
+
+
+
+.img {
+    //******** Top Header *********//
+    &-ifx-web {
+        background-image: url('@{imgURLMenu}/ifx-i-web.png');
+    }
+
+    &-ifx-org {
+        background-image: url('@{imgURLMenu}/ifx-i-org.png');
+    }
+
+    &-ifx-phone {
+        background-image: url('@{imgURLMenu}/ifx-i-phone.png');
+    }
+
+    &-ifx-rules {
+        padding: 0px 10px 0px 25px;
+        background-position: 5px 50%;
+        background-image: url('@{imgURLMenu}/ifx-i-rules.png');
+    }
+
+    &-ifx-impersonation {
+        background-image: url('@{imgURLMenu}/iconImpersonation.png');
+    }
+
+    &-ifx-impersonationStop {
+        background-image: url('@{imgURLMenu}/iconImpersonationExit.png');
+    }
+    //******** Menu *********//
+    &-site {
+        background-image: url("@{imgURLMenu}/site_white.svg");
+        .img-index-header(48px);
+    }
+
+    &-log {
+        background-image: url("@{imgURLMenu}/log_white.svg");
+        .img-index-header(48px);
+    }
+
+    &-lock {
+        background-image: url("@{imgURLMenu}/lock_white.svg");
+        .img-index-header(48px);
+    }
+    //******** Grid Details View *********//
+    &-information {
+        background-image: url("@{imgURL24}/information.png");
+        .imgProperties(24px);
+    }
+
+    &-user {
+        background-image: url("@{imgURL24}/user.png");
+        .imgProperties(24px);
+    }
+}
